@@ -2110,7 +2110,9 @@ function renderRecipe(id) {
   if (r.totalMinutesFastPath) pills.push('<span class="pill">' + r.totalMinutesFastPath + ' min</span>');
   if (r.servingsPrinted || r.servings) pills.push('<span class="pill gold">' + esc(String(r.servingsPrinted || r.servings)) + ' servings</span>');
   if (macBits.length) pills.push('<span class="pill">' + macBits.join(' &middot; ') + '</span>');
-  const hw = (r.handwrittenNotes || []).filter(Boolean).map(n =>
+  const hwRaw = r.handwrittenNotes;
+  const hwList = Array.isArray(hwRaw) ? hwRaw : (hwRaw ? [hwRaw] : []);
+  const hw = hwList.filter(Boolean).map(n =>
     '<div class="hwnote"><b>Your note:</b> ' + esc(typeof n === 'string' ? n : (n.text || JSON.stringify(n))) + '</div>').join('');
   const ing = (r.ingredients || []).map(x => '<li>' + esc(typeof x === 'string' ? x : (x.line || x.item || '')) + '</li>').join('');
   const steps = (r.instructions || []).map(x => '<li>' + esc(typeof x === 'string' ? x : (x.text || '')) + '</li>').join('');
