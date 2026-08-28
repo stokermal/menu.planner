@@ -335,6 +335,33 @@ body{background-image:radial-gradient(rgba(27,58,92,.035) 1px, transparent 1.2px
 .syncchip[data-s="on"]{color:var(--sage);font-weight:600}
 .syncchip[data-s="error"],.syncchip[data-s="offline"]{color:var(--clay);font-weight:600}
 @media print{.syncchip{display:none!important}}
+/* cook tonight */
+.tnhead{max-width:760px;margin:0 0 14px}
+.tnhead h1{margin:2px 0 8px}
+.eatrow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 8px}
+.eatrow label{font-size:14px;color:var(--graphite)}
+.eatrow input[type=time]{border:1px solid var(--paper-edge);border-radius:var(--r);padding:6px 8px;font:inherit;margin-left:6px}
+.sched{display:flex;flex-direction:column;gap:2px;background:var(--card);border:1px solid var(--paper-edge);border-left:4px solid var(--gold);border-radius:var(--r);padding:10px 14px}
+.schedrow{font-size:14px;color:var(--graphite)}
+.schedrow b{color:var(--ink);display:inline-block;min-width:74px}
+.dishblock{background:var(--card);border:1px solid var(--paper-edge);border-radius:var(--r);padding:16px 18px;margin:0 0 14px;max-width:760px}
+.dishhead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 6px}
+.dishhead h2{margin:0;font-size:20px}
+.dishhead h2 a{color:var(--ink);text-decoration:none}
+.startchip{background:var(--ink);color:#fff;border-radius:999px;padding:3px 11px;font-size:12.5px;font-weight:600}
+.startchip.slow{background:var(--sage)}
+.dishblock h3{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--graphite-soft);margin:12px 0 6px}
+.cklist{list-style:none;margin:0;padding:0}
+.cklist li{margin:0;padding:0}
+.cklist label{display:flex;gap:10px;align-items:flex-start;padding:7px 4px;border-radius:8px;cursor:pointer;line-height:1.45}
+.cklist label:hover{background:rgba(27,58,92,.04)}
+.cklist input{margin-top:3px;width:18px;height:18px;flex:none}
+.cklist input:checked + span{color:var(--graphite-soft);text-decoration:line-through}
+.cklist.steps{counter-reset:st}
+.cklist.steps li{counter-increment:st}
+.cklist.steps label::before{content:counter(st);font-weight:700;color:var(--ink-soft);min-width:20px;text-align:right;padding-top:1px}
+.cookbtn{text-decoration:none}
+@media (max-width:640px){.cklist input{width:22px;height:22px}}
 /* mobile touch */
 @media (max-width:640px){
   .btn{padding:11px 16px}
@@ -372,6 +399,7 @@ body{background-image:radial-gradient(rgba(27,58,92,.035) 1px, transparent 1.2px
   <header class="vhead">
     <h1>What's for dinner</h1>
     <p class="sub" id="cookWeekLabel"></p>
+    <p style="margin:6px 0 0"><button class="btn ghost sm" id="sendSkylight">Send week to Skylight</button></p>
   </header>
   <div id="cookList"></div>
 </div>
@@ -400,6 +428,8 @@ body{background-image:radial-gradient(rgba(27,58,92,.035) 1px, transparent 1.2px
 </div>
 
 <div class="view" id="view-recipe"><div id="recipeBody"></div></div>
+
+<div class="view" id="view-tonight"><div id="tonightBody"></div></div>
 
 <div class="view" id="view-plan">
 <header>
@@ -492,6 +522,9 @@ body{background-image:radial-gradient(rgba(27,58,92,.035) 1px, transparent 1.2px
       <p class="dnote" style="margin:0 0 4px">Staples you grab every trip &mdash; milk, bananas, whatever. They join every week's grocery list automatically.</p>
       <div id="addonEditor"></div>
       <button class="btn ghost sm" id="addAddon">+ Add item</button>
+      <h3 class="shead" style="margin-top:18px">Skylight</h3>
+      <p class="dnote" style="margin:0 0 4px">Your Skylight device email (find it in the Skylight app under Recipes Via Email). The "Send week to Skylight" button emails that week's recipe links there.</p>
+      <div class="edrow"><input type="text" class="edname" data-skylightemail value="" placeholder="yourdevice@ourskylight.com"></div>
       <p class="dnote" id="storeStatus" style="margin:14px 0 0"></p>
     </div>
   </div>
@@ -1919,6 +1952,8 @@ function renderSetup() {
     '<button class="btn ghost sm" data-addel="' + i + '" title="Remove item">&times;</button>' +
     '</div>').join('') : '<p class="dnote" style="margin:4px 0">Nothing yet.</p>';
   const syncMsg = {on: ' Cross-device sync is on.', push: ' Syncing\u2026', offline: ' Offline right now \u2014 will sync when back online.', error: ' Sync is having trouble; your data is still safe in this browser.', off: ''}[syncState] || '';
+  const skEl = document.querySelector('[data-skylightemail]');
+  if (skEl) skEl.value = STOREBOX.settings.skylightEmail || '';
   document.getElementById('storeStatus').textContent = (storageOk
     ? 'Changes save to this browser automatically.'
     : 'Heads up: this browser is blocking storage, so nothing will survive closing the tab.') + syncMsg;
@@ -2003,8 +2038,8 @@ window.addEventListener('beforeunload', () => {
 });
 
 /* ---------- multi-view router & new pages ---------- */
-const VIEWS = {home:'view-home', plan:'view-plan', cook:'view-cook', month:'view-month', recipes:'view-recipes', recipe:'view-recipe'};
-let currentView = 'home', currentRecipe = null;
+const VIEWS = {home:'view-home', plan:'view-plan', cook:'view-cook', month:'view-month', recipes:'view-recipes', recipe:'view-recipe', tonight:'view-tonight'};
+let currentView = 'home', currentRecipe = null, currentTonight = null;
 const LIBF = {q:'', meal:'All', fav:false, veg:false, quick:false, slow:false, tag:''};
 function parseHash() {
   const h = location.hash.replace(/^#\/?/, '');
@@ -2015,6 +2050,7 @@ function route() {
   const {name, arg} = parseHash();
   currentView = VIEWS[name] ? name : 'home';
   if (currentView === 'recipe') currentRecipe = arg;
+  if (currentView === 'tonight') currentTonight = DAYS.includes(arg) ? arg : todayName();
   for (const [k, id] of Object.entries(VIEWS))
     document.getElementById(id).classList.toggle('on', k === currentView);
   document.querySelectorAll('#topnav a').forEach(a => a.classList.toggle('on',
@@ -2028,6 +2064,7 @@ function routeRefresh() {
   else if (currentView === 'month') renderMonth();
   else if (currentView === 'recipes') renderLibrary();
   else if (currentView === 'recipe') renderRecipe(currentRecipe);
+  else if (currentView === 'tonight') renderTonight(currentTonight);
 }
 function todayName() {
   const names = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
@@ -2090,6 +2127,7 @@ function renderCook() {
       '<h3><a href="#recipe/' + m.rid + '">' + m.title + '</a></h3>' +
       '<div class="meta">' + smallPills(m.r) + '</div>' +
       (sides ? '<p class="cooksides">With: ' + sides + '</p>' : '') +
+      '<p style="margin:10px 0 0"><a class="btn sm cookbtn" href="#tonight/' + d + '">Cook this &rarr;</a></p>' +
       fbRow(d) + '</article>';
   }).join('');
 }
@@ -2205,6 +2243,86 @@ function fillMonth() {
   renderMonth();
 }
 
+/* ---------- cook tonight ---------- */
+function fmtClock(mins) {
+  let h = Math.floor(mins / 60) % 24, m = mins % 60;
+  if (h < 0) h += 24;
+  const ap = h >= 12 ? 'pm' : 'am';
+  let hh = h % 12; if (hh === 0) hh = 12;
+  return hh + ':' + String(m).padStart(2, '0') + ' ' + ap;
+}
+function eatAtMins() {
+  const t = (STOREBOX.settings.eatAt || '18:30').split(':');
+  return (+t[0]) * 60 + (+t[1] || 0);
+}
+function ckKey(kind, rid, i) { return kind + '|' + rid + '|' + i; }
+function tonightDishes(d) {
+  const p = S.plan[d]; if (!p) return [];
+  const out = [];
+  if (p.id === '__pizza__') {
+    const dough = byId['house-pizza-dough'];
+    if (dough) out.push({r: dough, role: 'main'});
+  } else if (byId[p.id]) out.push({r: byId[p.id], role: 'main'});
+  for (const sid of (p.sides || [])) if (byId[sid]) out.push({r: byId[sid], role: 'side'});
+  return out;
+}
+function renderTonight(d) {
+  const body = document.getElementById('tonightBody');
+  const p = S.plan[d];
+  if (!p) { body.innerHTML = '<p class="rback"><a class="btn ghost sm" href="#cook">&larr; This week</a></p><div class="recipepg"><h1>Nothing planned for ' + esc(d) + '</h1></div>'; return; }
+  p.cookChecks = p.cookChecks || {};
+  const dishes = tonightDishes(d);
+  const eat = eatAtMins();
+  const timed = [], slow = [];
+  for (const x of dishes) {
+    if (x.r.slowCookerHours && !x.r.totalMinutesFastPath) slow.push(x);
+    else { x.start = eat - (x.r.totalMinutesFastPath || 0); timed.push(x); }
+  }
+  timed.sort((a, b) => a.start - b.start);
+  const m = mealTitleFor(d);
+  const sched = timed.map(x => '<span class="schedrow"><b>' + fmtClock(x.start) + '</b> start ' + esc(x.r.name) + '</span>').join('');
+  const slowNote = slow.map(x => '<p class="dnote" style="margin:4px 0 0"><b>' + esc(x.r.name) + ':</b> slow cooker &middot; ' + esc(x.r.slowCookerHours) + ' &mdash; start it in the morning.</p>').join('');
+  const blocks = timed.concat(slow).map(x => {
+    const r = x.r;
+    const veg = r.vegetarianPath ? '<p class="dnote" style="margin:4px 0 8px">' + esc(typeof r.vegetarianPath === 'string' ? r.vegetarianPath : (r.vegetarianPath.note || '')) + '</p>' : '';
+    const ing = (r.ingredients || []).map((line, i) => {
+      const k = ckKey('ing', r.id, i), on = !!p.cookChecks[k];
+      return '<li><label><input type="checkbox" class="ckbox" data-ckday="' + d + '" data-ck="' + k + '"' + (on ? ' checked' : '') + '> <span>' + esc(typeof line === 'string' ? line : (line.line || '')) + '</span></label></li>';
+    }).join('');
+    const steps = (r.instructions || []).map((st, i) => {
+      const k = ckKey('st', r.id, i), on = !!p.cookChecks[k];
+      return '<li><label><input type="checkbox" class="ckbox" data-ckday="' + d + '" data-ck="' + k + '"' + (on ? ' checked' : '') + '> <span>' + esc(typeof st === 'string' ? st : (st.text || '')) + '</span></label></li>';
+    }).join('');
+    return '<section class="dishblock">' +
+      '<div class="dishhead"><h2><a href="#recipe/' + r.id + '">' + esc(r.name) + '</a></h2>' +
+      (x.start != null ? '<span class="startchip">Start ' + fmtClock(x.start) + '</span>' : '<span class="startchip slow">Slow cooker</span>') +
+      (r.totalMinutesFastPath ? '<span class="pill">' + r.totalMinutesFastPath + ' min</span>' : '') + '</div>' +
+      veg +
+      '<h3>Ingredients</h3><ul class="cklist">' + ing + '</ul>' +
+      '<h3>Steps</h3><ol class="cklist steps">' + steps + '</ol>' +
+      '</section>';
+  }).join('');
+  const done = Object.values(p.cookChecks).filter(Boolean).length;
+  body.innerHTML =
+    '<p class="rback"><a class="btn ghost sm" href="#cook">&larr; This week</a></p>' +
+    '<div class="tnhead"><span class="cdname">' + d + '</span><h1>' + m.title + '</h1>' +
+    '<div class="eatrow"><label>Eating at <input type="time" id="eatAtInput" value="' + esc(STOREBOX.settings.eatAt || '18:30') + '"></label>' +
+    '<button class="btn ghost sm" id="clearChecks"' + (done ? '' : ' hidden') + '>Reset checks</button></div>' +
+    '<div class="sched">' + sched + '</div>' + slowNote + '</div>' +
+    blocks +
+    '<div style="max-width:760px">' + fbRow(d) + '</div>';
+}
+function skylightMailto() {
+  const em = (STOREBOX.settings.skylightEmail || '').trim();
+  const base = location.href.split('#')[0].replace(/[^\/]*\.html$/, '');
+  const ids = new Set();
+  for (const d of DAYS) for (const x of tonightDishes(d)) ids.add(x.r.id);
+  const urls = [...ids].map(id => base + 'r/' + id + '.html');
+  const subject = encodeURIComponent('Meal plan \u2014 ' + weekLabelText(S.weekOf));
+  const bodyTx = encodeURIComponent(urls.join('\n'));
+  return 'mailto:' + encodeURIComponent(em) + '?subject=' + subject + '&body=' + bodyTx;
+}
+
 const ALL_TAGS = [...new Set(R.flatMap(r => r.tags || []))].sort();
 function renderLibraryControls() {
   const meals = ['All','Dinner','Breakfast','Side','Dessert','Component'];
@@ -2241,7 +2359,15 @@ function renderLibrary() {
 }
 document.addEventListener('click', e => {
   const t = e.target.closest('button'); if (!t) return;
-  if (t.id === 'monthPrev' || t.id === 'monthNext') {
+  if (t.id === 'clearChecks') {
+    const p = S.plan[currentTonight];
+    if (p) { p.cookChecks = {}; persist(); renderTonight(currentTonight); }
+  }
+  else if (t.id === 'sendSkylight') {
+    if (!(STOREBOX.settings.skylightEmail || '').trim()) { openSetup(); return; }
+    location.href = skylightMailto();
+  }
+  else if (t.id === 'monthPrev' || t.id === 'monthNext') {
     const d = parseISO(monthAnchor || monthKeyOf(S.weekOf));
     monthAnchor = fmtISO(new Date(d.getFullYear(), d.getMonth() + (t.id === 'monthNext' ? 1 : -1), 1));
     renderMonth();
@@ -2267,6 +2393,25 @@ document.addEventListener('input', e => {
 });
 document.addEventListener('change', e => {
   if (e.target.id === 'libTag') { LIBF.tag = e.target.value; renderLibrary(); }
+  else if (e.target.classList && e.target.classList.contains('ckbox')) {
+    const d = e.target.dataset.ckday, p = S.plan[d];
+    if (!p) return;
+    p.cookChecks = p.cookChecks || {};
+    if (e.target.checked) p.cookChecks[e.target.dataset.ck] = true;
+    else delete p.cookChecks[e.target.dataset.ck];
+    const btn = document.getElementById('clearChecks');
+    if (btn) btn.hidden = !Object.keys(p.cookChecks).length;
+    persist();
+  }
+  else if (e.target.id === 'eatAtInput') {
+    STOREBOX.settings.eatAt = e.target.value || '18:30';
+    saveStore();
+    renderTonight(currentTonight);
+  }
+  else if (e.target.dataset && e.target.dataset.skylightemail !== undefined) {
+    STOREBOX.settings.skylightEmail = e.target.value.trim();
+    saveStore();
+  }
 });
 window.addEventListener('hashchange', route);
 
