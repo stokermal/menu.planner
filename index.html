@@ -376,6 +376,7 @@ body{background-image:radial-gradient(rgba(27,58,92,.035) 1px, transparent 1.2px
 .brandlock.big{margin-bottom:8px}
 .wordmark{font-size:30px;font-weight:800;color:var(--ink);letter-spacing:-.5px;line-height:1.1;display:block}
 .brandlock.big .wordmark{font-size:36px}
+@media (max-width:640px){.wordmark{font-size:25px}.brandlock.big .wordmark{font-size:27px}.brandlock{gap:10px}}
 .wm2{display:inline-block;background:var(--red);color:var(--paper);border-radius:9px;padding:0 9px;transform:rotate(-6deg);border:2.5px solid var(--ink)}
 .tagline{margin:3px 0 0;font-size:11.5px;color:#8A6F35;letter-spacing:.2em;text-transform:uppercase}
 .checker{height:8px;margin-top:12px;background-image:repeating-linear-gradient(90deg,var(--ink) 0 8px,transparent 8px 16px),repeating-linear-gradient(90deg,transparent 0 8px,var(--ink) 8px 16px);background-size:16px 4px,16px 4px;background-position:0 0,0 4px;background-repeat:repeat-x,repeat-x}
@@ -393,9 +394,10 @@ body{background-image:radial-gradient(rgba(27,58,92,.035) 1px, transparent 1.2px
 .day.skipday .dbody{padding-top:14px}
 /* compact day cards: decided by default */
 .day.compact .editacts,.day.compact .addside,.day.compact .choicegrp,.day.compact select,
-.day.compact .side[aria-pressed="false"],.day.compact .boost:not([aria-pressed="true"]),
+.day.compact .side,.day.compact .boostlab,.day.compact .boost:not([aria-pressed="true"]),
 .day.compact .guest button,.day.compact .fruitrow{display:none!important}
-.day.compact .side[aria-pressed="true"],.day.compact .boost[aria-pressed="true"]{pointer-events:none}
+.day.compact .boost[aria-pressed="true"]{pointer-events:none}
+.day.compact .sidepick{margin:3px 0}
 .day.compact .sidepick button{pointer-events:none}
 .day.compact .boostrow:not(:has([aria-pressed="true"])):not(:has(.sidepick)){display:none}
 .day.editing .compactacts{display:none}
@@ -432,6 +434,24 @@ body{background-image:radial-gradient(rgba(27,58,92,.035) 1px, transparent 1.2px
 .cklist input:checked+span{animation:ckpop .22s ease-out}
 .librow{border-top:3px solid var(--red)}
 .librow .ln{font-family:Georgia,serif}
+
+/* --- build 7 --- */
+.homecard{padding:26px 22px;text-align:center;border-width:2px}
+.homecard h2{font-size:26px;font-weight:800;letter-spacing:-.3px;margin:0;font-family:inherit}
+.homecard:hover{background:var(--paper-deep)}
+@media (max-width:640px){.homecard{padding:22px 18px}.homecard h2{font-size:23px}}
+.boxhead{text-align:center}
+.boximg{max-width:340px;width:74%;height:auto;display:inline-block}
+.boxfallback{margin:6px 0 0;font-size:22px}
+.leftpill{display:inline-flex;align-items:center;gap:5px}
+.leftpill img{width:17px;height:17px;display:block}
+#lockBanner{background:#FBE7E1;border:1px solid var(--red);border-radius:var(--r);padding:9px 14px;margin:0 0 12px;font-size:13.5px;color:#8F2517}
+#lockBanner.flash{animation:lockflash .5s ease-out}
+@keyframes lockflash{0%{transform:scale(1)}30%{transform:scale(1.02);background:#F6CFC6}100%{transform:scale(1)}}
+.weeklocked .day .dacts,.weeklocked .swap,.weeklocked .addside,.weeklocked .guest button{opacity:.45;pointer-events:none}
+.scalebanner{background:var(--mustard);color:#4A3608;border:2px solid var(--ink);border-radius:999px;padding:5px 14px;font-size:13.5px;font-weight:700;display:inline-block;margin:0 0 10px;transform:rotate(-1deg)}
+.vegbox{background:#EAF3F1;border-left:3px solid var(--sage);border-radius:0 var(--r) var(--r) 0;padding:8px 12px;margin:0 0 10px;font-size:13.5px;color:#14544B}
+.vegbox b{color:#0F6E56}
 </style>
 </head>
 <body>
@@ -439,7 +459,7 @@ body{background-image:radial-gradient(rgba(27,58,92,.035) 1px, transparent 1.2px
 <nav class="topnav" id="topnav">
   <a href="#home" data-nav="home">Home</a>
   <a href="#plan" data-nav="plan">Plan the week</a>
-  <a href="#cook" data-nav="cook">This week</a>
+  <a href="#cook" data-nav="cook">Get cooking</a>
   <a href="#month" data-nav="month">Month</a>
   <a href="#recipes" data-nav="recipes">Recipes</a>
   <span class="syncchip" id="syncStatus" title="Cross-device sync status"></span>
@@ -447,15 +467,14 @@ body{background-image:radial-gradient(rgba(27,58,92,.035) 1px, transparent 1.2px
 
 <div class="view" id="view-home">
   <header class="vhead">
-    <div class="brandlock big"><svg width="58" height="58" viewBox="0 0 56 56" role="img" aria-label="Stoked 2 Eat logo"><circle cx="28" cy="28" r="25" fill="#1D9E8F" stroke="#1E2430" stroke-width="2.5"/><path d="M28 9c1.2 5.4-2.6 8.2-5.4 11.6-2.8 3.4-4.6 7-4.6 10.6 0 6.4 4.6 11 10 11s10-4.6 10-11c0-4.8-2.6-8.4-5.2-11.2.6 2.6.2 4.8-1.2 6.2-1.6 1.6-4.4 1.4-5.6-.6-1.4-2.4-.2-4.8 1-7.2 1.2-2.6 1.6-6 1-9.4z" fill="#D5352C" stroke="#1E2430" stroke-width="2.2" stroke-linejoin="round"/><path d="M28 26c.6 2.6-1.8 3.8-1.8 6.4 0 2.6 1.8 4.4 4 4.4-1 1.6-2.8 2.6-4.8 2.4-2.8-.3-4.8-2.6-4.8-5.6 0-3.8 3.2-5.6 5.4-8.4.8-1 1.6-2.2 2-3.6z" fill="#F3C650"/></svg><div><span class="wordmark">STOKED <span class="wm2">2</span> EAT</span><p class="tagline">Est. 2026 &middot; Stoker family kitchen</p></div></div>
+    <div class="brandlock big"><svg width="58" height="58" viewBox="0 0 56 56" role="img" aria-label="Stoked 2 Eat logo"><circle cx="28" cy="28" r="25" fill="#1D9E8F" stroke="#1E2430" stroke-width="2.5"/><path d="M28 9c1.2 5.4-2.6 8.2-5.4 11.6-2.8 3.4-4.6 7-4.6 10.6 0 6.4 4.6 11 10 11s10-4.6 10-11c0-4.8-2.6-8.4-5.2-11.2.6 2.6.2 4.8-1.2 6.2-1.6 1.6-4.4 1.4-5.6-.6-1.4-2.4-.2-4.8 1-7.2 1.2-2.6 1.6-6 1-9.4z" fill="#D5352C" stroke="#1E2430" stroke-width="2.2" stroke-linejoin="round"/><path d="M28 26c.6 2.6-1.8 3.8-1.8 6.4 0 2.6 1.8 4.4 4 4.4-1 1.6-2.8 2.6-4.8 2.4-2.8-.3-4.8-2.6-4.8-5.6 0-3.8 3.2-5.6 5.4-8.4.8-1 1.6-2.2 2-3.6z" fill="#F3C650"/></svg><div><span class="wordmark">STOKED <span class="wm2">2</span> EAT</span><p class="tagline">Stoker family kitchen</p></div></div>
     <div class="checker" aria-hidden="true"></div>
-  <div class="checker" aria-hidden="true"></div>
-</header>
+  </header>
   <div id="homeTonight"></div>
   <div class="homegrid">
-    <a class="homecard" href="#plan"><h2>Plan the week</h2><p>Build the menu, scale portions, get the grocery list and the chicken batch.</p></a>
-    <a class="homecard" href="#cook"><h2>What's for dinner</h2><p>Just this week's meals. Tap one to cook from the recipe.</p></a>
-    <a class="homecard" href="#recipes"><h2>Browse recipes</h2><p>All 159 recipes, searchable by name, meal type, and tags.</p></a>
+    <a class="homecard" href="#plan"><h2>Plan the week</h2></a>
+    <a class="homecard" href="#cook"><h2>Get cooking</h2></a>
+    <a class="homecard" href="#recipes"><h2>Browse recipes</h2></a>
   </div>
 </div>
 
@@ -481,7 +500,7 @@ body{background-image:radial-gradient(rgba(27,58,92,.035) 1px, transparent 1.2px
 </div>
 
 <div class="view" id="view-recipes">
-  <header class="vhead"><svg width="100%" height="118" viewBox="0 0 680 118" role="img" aria-label="The Stoker recipe box"><path d="M190 52 h300 v52 c0 6-5 10-11 10 H201 c-6 0-11-4-11-10z" fill="#B5121B" stroke="#1E2430" stroke-width="2.5"/><path d="M180 46 h320 v14 H180z" fill="#8E0E15" stroke="#1E2430" stroke-width="2.5"/><g><rect x="216" y="18" width="76" height="32" rx="4" fill="#FFFDF6" stroke="#1E2430" stroke-width="2"/><rect x="230" y="10" width="48" height="15" rx="4" fill="#F3C650" stroke="#1E2430" stroke-width="2"/><text x="254" y="21.5" text-anchor="middle" style="font-size:9.5px;font-weight:600" fill="#4A3608">DINNERS</text></g><g><rect x="304" y="24" width="76" height="26" rx="4" fill="#FFF9EE" stroke="#1E2430" stroke-width="2"/><rect x="314" y="16" width="56" height="15" rx="4" fill="#1D9E8F" stroke="#1E2430" stroke-width="2"/><text x="342" y="27.5" text-anchor="middle" style="font-size:9.5px;font-weight:600" fill="#FBF4E6">BREAKFASTS</text></g><g><rect x="392" y="26" width="72" height="24" rx="4" fill="#FFF6E6" stroke="#1E2430" stroke-width="2"/><rect x="404" y="18" width="44" height="15" rx="4" fill="#D5352C" stroke="#1E2430" stroke-width="2"/><text x="426" y="29.5" text-anchor="middle" style="font-size:9.5px;font-weight:600" fill="#FBF4E6">SIDES</text></g><text x="340" y="86" text-anchor="middle" style="font-size:14px;font-weight:600;letter-spacing:.08em" fill="#FBF4E6">THE STOKER RECIPE BOX</text><text x="340" y="100" text-anchor="middle" style="font-size:9px;letter-spacing:2px" fill="#F0B9B4">159 CARDS AND COUNTING</text></svg></header>
+  <header class="vhead boxhead"><img src="images/recipe-box.png" alt="The Stoker recipe box" class="boximg" onerror="this.style.display='none';document.getElementById('boxFallback').hidden=false"><h1 id="boxFallback" class="boxfallback" hidden>Recipes</h1></header>
   <div class="libbar">
     <input type="search" id="libQ" placeholder="Search recipes&hellip;" aria-label="Search recipes">
     <select id="libTag" aria-label="Filter by tag"></select>
@@ -499,12 +518,12 @@ body{background-image:radial-gradient(rgba(27,58,92,.035) 1px, transparent 1.2px
 <header>
   <div class="headrow">
     <div>
-      <div class="brandlock"><svg width="46" height="46" viewBox="0 0 56 56" role="img" aria-label="Stoked 2 Eat logo"><circle cx="28" cy="28" r="25" fill="#1D9E8F" stroke="#1E2430" stroke-width="2.5"/><path d="M28 9c1.2 5.4-2.6 8.2-5.4 11.6-2.8 3.4-4.6 7-4.6 10.6 0 6.4 4.6 11 10 11s10-4.6 10-11c0-4.8-2.6-8.4-5.2-11.2.6 2.6.2 4.8-1.2 6.2-1.6 1.6-4.4 1.4-5.6-.6-1.4-2.4-.2-4.8 1-7.2 1.2-2.6 1.6-6 1-9.4z" fill="#D5352C" stroke="#1E2430" stroke-width="2.2" stroke-linejoin="round"/><path d="M28 26c.6 2.6-1.8 3.8-1.8 6.4 0 2.6 1.8 4.4 4 4.4-1 1.6-2.8 2.6-4.8 2.4-2.8-.3-4.8-2.6-4.8-5.6 0-3.8 3.2-5.6 5.4-8.4.8-1 1.6-2.2 2-3.6z" fill="#F3C650"/></svg><div><span class="wordmark">STOKED <span class="wm2">2</span> EAT</span><p class="tagline">Est. 2026 &middot; Stoker family kitchen</p></div></div>
-      <p class="sub">Dinners scaled to who's actually eating &mdash; groceries, prep, and the chicken batch handled.</p>
+      <div class="brandlock"><svg width="46" height="46" viewBox="0 0 56 56" role="img" aria-label="Stoked 2 Eat logo"><circle cx="28" cy="28" r="25" fill="#1D9E8F" stroke="#1E2430" stroke-width="2.5"/><path d="M28 9c1.2 5.4-2.6 8.2-5.4 11.6-2.8 3.4-4.6 7-4.6 10.6 0 6.4 4.6 11 10 11s10-4.6 10-11c0-4.8-2.6-8.4-5.2-11.2.6 2.6.2 4.8-1.2 6.2-1.6 1.6-4.4 1.4-5.6-.6-1.4-2.4-.2-4.8 1-7.2 1.2-2.6 1.6-6 1-9.4z" fill="#D5352C" stroke="#1E2430" stroke-width="2.2" stroke-linejoin="round"/><path d="M28 26c.6 2.6-1.8 3.8-1.8 6.4 0 2.6 1.8 4.4 4 4.4-1 1.6-2.8 2.6-4.8 2.4-2.8-.3-4.8-2.6-4.8-5.6 0-3.8 3.2-5.6 5.4-8.4.8-1 1.6-2.2 2-3.6z" fill="#F3C650"/></svg><div><span class="wordmark">STOKED <span class="wm2">2</span> EAT</span><p class="tagline">Stoker family kitchen</p></div></div>
+
     </div>
     <div class="headacts">
       <button class="btn red" id="decideAll" title="Decide the whole week in one tap">Let's get stoked</button>
-      <button class="btn ghost" id="shuffleWeek">Build a new week</button>
+      <button class="btn ghost" id="weekLockBtn"></button>
       <button class="btn ghost" id="setupBtn">Household</button>
       <button class="btn ghost" id="printBtn">Print</button>
     </div>
@@ -522,8 +541,9 @@ body{background-image:radial-gradient(rgba(27,58,92,.035) 1px, transparent 1.2px
     <div style="display:flex;align-items:baseline;justify-content:space-between;gap:6px 12px;flex-wrap:wrap;margin:0 0 12px">
       <h2>The week</h2>
       <div class="weeknav"><button class="btn ghost sm" id="weekPrev" title="Previous week">&#9668;</button><span class="wklabel" id="weekLabel"></span><button class="btn ghost sm" id="weekNext" title="Next week">&#9658;</button></div>
-      <span class="seclab">Monday protected &middot; Friday pizza</span>
+      <span class="seclab" id="lockChip"></span>
     </div>
+    <div id="lockBanner" hidden></div>
     <div class="week" id="week"></div>
 
     <section class="panel" style="margin-top:16px">
@@ -585,6 +605,8 @@ body{background-image:radial-gradient(rgba(27,58,92,.035) 1px, transparent 1.2px
       <p class="dnote" style="margin:0 0 4px">Staples you grab every trip &mdash; milk, bananas, whatever. They join every week's grocery list automatically.</p>
       <div id="addonEditor"></div>
       <button class="btn ghost sm" id="addAddon">+ Add item</button>
+      <h3 class="shead" style="margin-top:18px">House rules</h3>
+      <p class="dnote" style="margin:0">Portions scale off appetite units, not headcount &mdash; Josh counts as 2. Monday is protected (make-ahead, slow cooker, or 30 minutes and under) and Friday is pizza night.</p>
       <h3 class="shead" style="margin-top:18px">Skylight</h3>
       <p class="dnote" style="margin:0 0 4px">Your Skylight device email (find it in the Skylight app under Recipes Via Email). The "Send week to Skylight" button emails that week's recipe links there.</p>
       <div class="edrow"><input type="text" class="edname" data-skylightemail value="" placeholder="yourdevice@ourskylight.com"></div>
@@ -662,6 +684,7 @@ STOREBOX.feedbackLog = Array.isArray(STOREBOX.feedbackLog) ? STOREBOX.feedbackLo
 STOREBOX.customRecipes = Array.isArray(STOREBOX.customRecipes) ? STOREBOX.customRecipes : []; /* reserved for a future recipe editor */
 if (!Array.isArray(STOREBOX.settings.addOns)) STOREBOX.settings.addOns = [];
 STOREBOX.weekMeta = STOREBOX.weekMeta || {};      /* per-week last-edited stamps, for sync merging */
+STOREBOX.weekLocks = STOREBOX.weekLocks || {};    /* weeks frozen after groceries are ordered */
 STOREBOX.settingsMeta = STOREBOX.settingsMeta || 0;
 let _lastSettingsJson = null;
 function saveStore() {
@@ -841,9 +864,9 @@ function plur(word, n) {
   if (/[^aeiou]y$/.test(word)) return word.replace(/y$/, 'ies');
   return word + 's';
 }
-const isChicken = r => !!r.cookedChickenRequired;
+const isChicken = r => !!(r && r.cookedChickenRequired);
 
-const beansOn = (plan, d) => plan[d] && plan[d] !== '__pizza__' && !!byId[plan[d]].beanCentral;
+const beansOn = (plan, d) => plan[d] && plan[d] !== '__pizza__' && plan[d] !== '__skip__' && !!(byId[plan[d]] || {}).beanCentral;
 const dayAccepts = (plan, d, id) => id === '__pizza__' ? d === PIZZA.day
   : FRIDAY_IDS.has(id) ? d === PIZZA.day
   : (d !== 'Monday' || isMondaySafe(byId[id]));
@@ -852,9 +875,11 @@ function proposeWeek() {
   const pool = shuffle(DINNERS);
   const plan = {}, used = new Set(), keptBoost = {}, keptSides = {}, keptCombo = {}, keptChoices = {}, keptProtein = {}, keptSideBoosts = {}, keptShell = {}, keptBreads = {}, keptStoreChoices = {}, keptVersions = {};
 
-  // Locked days survive a reshuffle untouched.
+  // Locked and skipped days survive a reshuffle untouched.
+  const keptSkip = {};
   for (const d of DAYS) {
     const prev = S.plan[d];
+    if (prev && prev.skip) { keptSkip[d] = prev.skip; plan[d] = '__skip__'; continue; }
     if (prev && prev.locked) {
       plan[d] = prev.id; keptBoost[d] = prev.boosts || []; keptSides[d] = prev.sides || [];
       keptCombo[d] = prev.combo; keptChoices[d] = prev.choices || {}; keptProtein[d] = prev.protein;
@@ -862,10 +887,12 @@ function proposeWeek() {
       if (prev.id !== '__pizza__') used.add(prev.id);
     }
   }
-  plan[PIZZA.day] = plan[PIZZA.day] || '__pizza__';
+  if (!keptSkip[PIZZA.day]) plan[PIZZA.day] = plan[PIZZA.day] || '__pizza__';
 
   const place = (d, r) => { plan[d] = r.id; used.add(r.id); };
   const free = () => DAYS.filter(d => !plan[d]);
+  const pendingCombo = {};
+  const comboAnchor = new Set(COMBOS.map(c => c.main));
 
   // Monday has to survive the 4:30-6:20 gap.
   if (!plan['Monday']) {
@@ -873,9 +900,25 @@ function proposeWeek() {
     if (mon) place('Monday', mon);
   }
 
+  // Combo nights (taco, pasta, asian...) take a turn in the rotation, one a week.
+  if (Math.random() < 0.75) {
+    const openDays = free().filter(d => d !== PIZZA.day);
+    outer:
+    for (const c of shuffle(COMBOS.slice())) {
+      const main = byId[c.main];
+      if (!main || used.has(main.id)) continue;
+      for (const d of shuffle(openDays)) {
+        if (d === 'Monday' && !isMondaySafe(main)) continue;
+        place(d, main);
+        pendingCombo[d] = c.id;
+        break outer;
+      }
+    }
+  }
+
   // Cook once, eat twice: two chicken meals close enough to share one batch.
   const chickenPool = shuffle(DINNERS.filter(r => isChicken(r) && !used.has(r.id)));
-  const alreadyChicken = DAYS.filter(d => plan[d] && plan[d] !== '__pizza__' && isChicken(byId[plan[d]]));
+  const alreadyChicken = DAYS.filter(d => plan[d] && plan[d] !== '__pizza__' && plan[d] !== '__skip__' && isChicken(byId[plan[d]]));
   const open = free().filter(d => d !== 'Monday');
   const pairs = [];
   for (let i = 0; i < open.length; i++)
@@ -900,7 +943,7 @@ function proposeWeek() {
   }
 
   // One night Byleth can eat straight off the stove.
-  if (!DAYS.some(d => plan[d] && plan[d] !== '__pizza__' && byId[plan[d]].vegetarian)) {
+  if (!DAYS.some(d => plan[d] && plan[d] !== '__pizza__' && plan[d] !== '__skip__' && (byId[plan[d]] || {}).vegetarian)) {
     for (const d of shuffle(free())) {
       const veg = pool.find(r => !used.has(r.id) && r.vegetarian && dayAccepts(plan, d, r.id));
       if (veg) { place(d, veg); break; }
@@ -935,16 +978,76 @@ function proposeWeek() {
   }
 
   const next = {};
-  for (const d of DAYS) next[d] = {id: plan[d], locked: !!(S.plan[d] && S.plan[d].locked), boosts: keptBoost[d] || [], sides: keptSides[d] || [], sideBoosts: keptSideBoosts[d] || {}, shell: keptShell[d] || null, breads: keptBreads[d] || {}, storeChoices: keptStoreChoices[d] || {}, versions: keptVersions[d] || {}, combo: keptCombo[d] || null, choices: keptChoices[d] || {}, protein: keptProtein[d] || null};
+  for (const d of DAYS) next[d] = {id: plan[d] === '__skip__' ? null : plan[d], skip: keptSkip[d] || null, locked: !!(S.plan[d] && S.plan[d].locked), boosts: keptBoost[d] || [], sides: keptSides[d] || [], sideBoosts: keptSideBoosts[d] || {}, shell: keptShell[d] || null, breads: keptBreads[d] || {}, storeChoices: keptStoreChoices[d] || {}, versions: keptVersions[d] || {}, combo: keptCombo[d] || null, choices: keptChoices[d] || {}, protein: keptProtein[d] || null};
   S.plan = next;
-  if (!(S.plan['Friday'].locked)) S.pizzaStyle = sample(PIZZA.styles).id;
+  if (!(S.plan['Friday'].locked || S.plan['Friday'].skip)) S.pizzaStyle = sample(PIZZA.styles).id;
   S.varietySeed = Math.floor(Math.random() * 997);
+  for (const d of DAYS) if (pendingCombo[d] && !S.plan[d].skip) applyCombo(d, pendingCombo[d]);
+  autoSides();
   pickEmergency();
   pickSnacks();
   pickBreakfasts();
 }
 
+/* Fill sides for any day that has none: pairing score first, then what the plate is short on.
+   Never two sides that play the same role. */
+/* leftovers-friendly: keeps in the fridge or freezer rather than best-fresh */
+function keepsWell(r) {
+  const k = (r.keeps || '').toLowerCase();
+  if (!k) return false;
+  return !/best fresh|do not keep|eat immediately|same day/.test(k);
+}
+function sideRole(sr) {
+  const m = sr.macrosPerServing || {};
+  const fib = m.fiber || 0, pro = m.protein || 0;
+  if (fib >= 4) return 'fiber';
+  if (pro >= 12) return 'protein';
+  if ((m.carbs || 0) >= 25) return 'starch';
+  return 'other';
+}
+function autoSides() {
+  for (const d of DAYS) {
+    const p = S.plan[d]; if (!p || p.skip || !p.id) return {t:{protein:0,fiber:0,calories:0}, counted:0, missing:0, extras:0};
+    if (!p || p.skip || p.locked || p.id === '__pizza__' || p.combo) continue;
+    if ((p.sides || []).length) continue;
+    const r = byId[p.id]; if (!r) continue;
+    let sugg = (PAIRS[r.id] || []).slice();
+    if (BFD_IDS.has(r.id)) {
+      const bf = BFAST_SIDES.map((id, i) => ({id, score: 90 - i * 3}));
+      sugg = SWEET_BFD.has(r.id) ? bf : sugg.concat(bf.filter(x => !sugg.some(s => s.id === x.id)));
+    }
+    sugg = sugg.filter(x => byId[x.id]);
+    if (!sugg.length) continue;
+    const mm = r.macrosPerServing || {};
+    const needFiber = (mm.fiber || 0) < 6, needProtein = (mm.protein || 0) < 25;
+    const scored = sugg.map((x, i) => {
+      const sr = byId[x.id], sm = sr.macrosPerServing || {};
+      let s = (x.score || 50) - i * 0.5;
+      if (needFiber) s += Math.min(sm.fiber || 0, 8) * 2.2;
+      if (needProtein) s += Math.min(sm.protein || 0, 20) * 1.1;
+      if (d === 'Monday') s -= Math.max(0, ((sr.totalMinutesFastPath || 30) - 30)) * 0.6;
+      s += ((S.varietySeed + i * 7) % 5);  /* gentle rotation so it isn't the same side weekly */
+      return {id: x.id, s, role: sideRole(sr)};
+    }).sort((a, b) => b.s - a.s);
+    const picked = [], roles = new Set();
+    for (const c of scored) {
+      if (picked.length >= 2) break;
+      if (picked.includes(c.id)) continue;
+      if (roles.has(c.role)) continue;   /* complement, don't echo */
+      picked.push(c.id); roles.add(c.role);
+    }
+    /* one good side beats two that do the same job */
+    p.sides = picked;
+  }
+}
+
+function flashLock() {
+  const el = document.getElementById('lockBanner');
+  if (!el) return;
+  el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+}
 function rerollDay(day) {
+  if (weekLocked()) { flashLock(); return; }
   const taken = new Set(DAYS.map(d => S.plan[d].id));
   const fromBfd = BFD_IDS.has(S.plan[day].id);
   let pool = (fromBfd ? BFD : DINNERS).filter(r => !taken.has(r.id));
@@ -962,8 +1065,8 @@ function rerollDay(day) {
 function chickenPlan() {
   const meals = [];
   for (const d of DAYS) {
-    const p = S.plan[d]; if (!p || p.id === '__pizza__') continue;
-    const r = byId[p.id]; if (!r.cookedChickenRequired) continue;
+    const p = S.plan[d]; if (!p || p.skip || !p.id || p.id === '__pizza__') continue;
+    const r = byId[p.id]; if (!r || !r.cookedChickenRequired) continue;
     const {mult} = scaleSide(r, d);
     // cupsAtRecipeServings x multiplier is the same math the file uses to reach
     // cupsAtHouseholdTarget, so it stays true at any scale.
@@ -1363,6 +1466,17 @@ function roundQty(rec) {
 /* ---------- render ---------- */
 function render() {
   const wl = document.getElementById('weekLabel'); if (wl) wl.textContent = weekLabelText(S.weekOf);
+  const locked = weekLocked();
+  const lb = document.getElementById('weekLockBtn');
+  if (lb) lb.textContent = locked ? 'Unlock week' : 'Lock week';
+  const ban = document.getElementById('lockBanner');
+  if (ban) {
+    ban.hidden = !locked;
+    ban.innerHTML = locked ? '<span>&#128274; This week is locked &mdash; groceries are ordered. Cooking, notes, and the grocery list all still work.</span>' : '';
+  }
+  const lc = document.getElementById('lockChip');
+  if (lc) lc.textContent = locked ? 'Locked' : '';
+  document.getElementById('view-plan').classList.toggle('weeklocked', locked);
   const tt = document.getElementById('treatToggle'); if (tt) tt.checked = !!S.treat;
   const mt = document.getElementById('measToggle'); if (mt) mt.checked = !!S.meas;
   renderEaters(); renderWeek(); renderRail(); renderExtras();
@@ -1375,7 +1489,7 @@ function renderEaters() {
   row.innerHTML = EATERS.map(e => {
     const on = S.eaters[e.name];
     return '<button class="eater" data-eater="' + esc(e.name) + '" aria-pressed="' + on + '">' +
-      '<b>' + esc(e.name) + '</b>' + (e.units > 1 ? '<span class="u">' + e.units + ' units</span>' : '') + '</button>';
+      '<b>' + esc(e.name) + '</b></button>';
   }).join('');
   const u = unitsFor('Monday') - (S.guests['Monday'] || 0);
   document.getElementById('unitTotal').textContent = u.toFixed(u % 1 ? 1 : 0) + ' appetite units';
@@ -1383,7 +1497,7 @@ function renderEaters() {
 
 function renderWeek() {
   const week = document.getElementById('week');
-  week.innerHTML = DAYS.map(d => S.plan[d].id === '__pizza__' ? pizzaCard(d) : dayCard(d)).join('');
+  week.innerHTML = DAYS.map(d => (S.plan[d] && !S.plan[d].skip && S.plan[d].id === '__pizza__') ? pizzaCard(d) : dayCard(d)).join('');
 }
 
 function dayMargin(d, tag) {
@@ -1405,7 +1519,9 @@ function dayCard(d) {
       '<div class="dacts"><button class="btn ghost sm" data-unskip="' + d + '">Un-skip</button></div>' +
       '</div></article>';
   }
-  const r = byId[p.id], sc = scaleSide(r, d);
+  const r = byId[p.id];
+  if (!r) return '<article class="day skipday">' + dayMargin(d, '') + '<div class="dbody"><h3 class="dtitle" style="color:var(--graphite-soft)">Nothing planned</h3><div class="dacts"><button class="btn ghost sm" data-reroll="' + d + '">Pick something</button></div></div></article>';
+  const sc = scaleSide(r, d);
   const past = dayPassed(d);
   const editing = !!editOpen[d];
   const tag = past ? 'Earlier this week' : (d === 'Monday' ? 'Make-ahead night' : '');
@@ -1415,22 +1531,13 @@ function dayCard(d) {
   else if (r.totalMinutesFastPath) pills.push('<span class="pill">' + r.totalMinutesFastPath + ' min</span>');
   const boostP = (p.boosts || []).reduce((s, i) => s + ((r.boosts[i] && r.boosts[i].delta.p) || 0), 0);
   const boostF = (p.boosts || []).reduce((s, i) => s + ((r.boosts[i] && r.boosts[i].delta.fib) || 0), 0);
-  if (r.macrosPerServing && r.macrosPerServing.protein != null) {
-    const total = r.macrosPerServing.protein + boostP;
-    pills.push('<span class="pill' + (total >= 25 ? ' sage' : total < 15 ? ' clay' : '') + '">' +
-      r.macrosPerServing.protein + 'g protein' + (boostP ? ' <b>+' + boostP + ' = ' + total + 'g</b>' : '') + '</span>');
-  }
   pills.push('<span class="pill gold">' + sc.mult + '&times; &rarr; ' + sc.servings + ' servings</span>');
   if (r.cookedChickenRequired) pills.push('<span class="pill clay">Uses batch chicken</span>');
+  if (keepsWell(r)) pills.push('<span class="pill leftpill"><img src="images/icon-reheats.png" alt="" onerror="this.style.display=\'none\'"> Good leftovers</span>');
 
   let notes = '';
   if (sc.overridden) notes += '<p class="dnote"><b>Set to ' + sc.mult + '&times;.</b> ' + esc(r.overrideReason || '') + '</p>';
-  if (r.keepsNote && r.keeps) notes += '<p class="dnote"><b>' + cap(r.keeps) + '.</b> ' + esc(r.keepsNote) + '</p>';
   const cb = comboById[p.combo];
-  if (cb && cb.byleth) notes += '<p class="dnote"><b>Vegetarian path.</b> ' + esc(cb.byleth) + '</p>';
-  else if (!r.vegetarian && r.vegetarianPath)
-    notes += '<p class="dnote"><b>Vegetarian path &mdash; ' + esc(r.vegetarianPath.mode.toLowerCase()) + '.</b> ' +
-      esc(r.vegetarianPath.how) + '</p>';
   if (cb && cb.eli) notes += '<p class="dnote"><b>Beans.</b> ' + esc(cb.eli) + '</p>';
   if (cb && cb.overrideReason) notes += '<p class="dnote">' + esc(cb.overrideReason) + '</p>';
 
@@ -1705,10 +1812,7 @@ function sideRow(d, r) {
     const forced = c && (c.multiplierOverrides || {})[id];
     if (forced && forced > sc.mult) { sc.mult = forced; sc.servings = forced * sr.servings; sc.forced = true; }
     const slow = (sr.totalMinutesFastPath || 0) > 60 || sr.slowCookerHours;
-    return '<p class="sidepick"><b>' + esc(sr.name) + '.</b> ' +
-      esc(sr.source ? sr.source.book + (sr.source.page ? ', p. ' + sr.source.page : '') : '') +
-      ' &middot; ' + sc.mult + '&times; &rarr; ' + sc.servings + ' servings' +
-      (sc.forced ? ' <span class="why">bowl base</span>' : '') +
+    return '<p class="sidepick"><b>' + esc(sr.name) + '</b>' +
       (why[id] ? ' &middot; <span class="why">' + esc(why[id]) + '</span>' : '') +
       (sr.beanCentral ? ' &middot; <span class="why">bean-heavy</span>' : '') +
       (d === 'Monday' && slow ? ' &middot; <span class="why">start it before you leave</span>' : '') +
@@ -1733,7 +1837,7 @@ function pizzaCard(d) {
       '<div class="meta"><span class="pill gold">Pizza night</span><span class="pill">3 dough batches</span></div>' +
       '<p class="dnote">' + esc(style.fun) + '</p>' +
       '<p class="dnote"><b>On top:</b> ' + esc((style.toppings || []).join(' &middot; ')) + '</p>' +
-      (style.bylethPath ? '<p class="dnote"><b>Vegetarian path.</b> ' + esc(style.bylethPath) + '</p>' : '');
+      '';
   }
   const pizzaSides = S.orderOut ? '' : sideRow(d, {id: '__pizza__', tags: []}) + plateRow(d);
   const fchips = fridayChips(d);
@@ -1966,7 +2070,15 @@ function restoreWeek(key) {
   if (S.bfPicks.length < 2) pickBreakfasts();
   return true;
 }
+function weekLocked() { return !!(STOREBOX.weekLocks || {})[S.weekOf]; }
+function setWeekLock(on) {
+  STOREBOX.weekLocks = STOREBOX.weekLocks || {};
+  if (on) STOREBOX.weekLocks[S.weekOf] = Date.now(); else delete STOREBOX.weekLocks[S.weekOf];
+  STOREBOX.weekMeta[S.weekOf] = Date.now();
+  render();
+}
 function decideAll() {
+  if (weekLocked()) { flashLock(); return; }
   proposeWeek();
   for (const d of DAYS) {
     const p = S.plan[d];
@@ -2381,7 +2493,15 @@ function renderTonight(d) {
   const slowNote = slow.map(x => '<p class="dnote" style="margin:4px 0 0"><b>' + esc(x.r.name) + ':</b> slow cooker &middot; ' + esc(x.r.slowCookerHours) + ' &mdash; start it in the morning.</p>').join('');
   const blocks = timed.concat(slow).map(x => {
     const r = x.r;
-    const veg = r.vegetarianPath ? '<p class="dnote" style="margin:4px 0 8px">' + esc(typeof r.vegetarianPath === 'string' ? r.vegetarianPath : (r.vegetarianPath.note || '')) + '</p>' : '';
+    const cb2 = comboById[p.combo];
+    let veg = '';
+    if (cb2 && cb2.byleth) veg = '<div class="vegbox"><b>For Byleth.</b> ' + esc(cb2.byleth) + '</div>';
+    else if (!r.vegetarian && r.vegetarianPath && r.vegetarianPath.how)
+      veg = '<div class="vegbox"><b>For Byleth &mdash; ' + esc((r.vegetarianPath.mode || '').toLowerCase()) + '.</b> ' + esc(r.vegetarianPath.how) + '</div>';
+    const scl = scaleSide(r, d);
+    const scaleBanner = (scl && scl.mult > 1)
+      ? '<div class="scalebanner">&times;' + scl.mult + ' &mdash; ' + (scl.mult === 2 ? 'double this recipe' : 'multiply everything by ' + scl.mult) + ' for ' + scl.servings + ' servings</div>' : '';
+    const keeps = r.keepsNote ? '<p class="dnote" style="margin:8px 0 0">' + (r.keeps ? '<b>' + esc(cap(r.keeps)) + '.</b> ' : '') + esc(r.keepsNote) + '</p>' : '';
     const ing = (r.ingredients || []).map((line, i) => {
       const k = ckKey('ing', r.id, i), on = !!p.cookChecks[k];
       return '<li><label><input type="checkbox" class="ckbox" data-ckday="' + d + '" data-ck="' + k + '"' + (on ? ' checked' : '') + '> <span>' + esc(typeof line === 'string' ? line : (line.line || '')) + '</span></label></li>';
@@ -2394,9 +2514,9 @@ function renderTonight(d) {
       '<div class="dishhead"><h2><a href="#recipe/' + r.id + '">' + esc(r.name) + '</a></h2>' +
       (x.start != null ? '<span class="startchip">Start ' + fmtClock(x.start) + '</span>' : '<span class="startchip slow">Slow cooker</span>') +
       (r.totalMinutesFastPath ? '<span class="pill">' + r.totalMinutesFastPath + ' min</span>' : '') + '</div>' +
-      veg +
+      scaleBanner + veg +
       '<h3>Ingredients</h3><ul class="cklist">' + ing + '</ul>' +
-      '<h3>Steps</h3><ol class="cklist steps">' + steps + '</ol>' +
+      '<h3>Steps</h3><ol class="cklist steps">' + steps + '</ol>' + keeps +
       '</section>';
   }).join('');
   const done = Object.values(p.cookChecks).filter(Boolean).length;
@@ -2456,7 +2576,11 @@ function renderLibrary() {
 }
 document.addEventListener('click', e => {
   const t = e.target.closest('button'); if (!t) return;
-  if (t.dataset.editday) { editOpen[t.dataset.editday] = true; render(); }
+  if (t.id === 'weekLockBtn') { setWeekLock(!weekLocked()); }
+  else if (t.dataset.editday) {
+    if (weekLocked()) { flashLock(); return; }
+    editOpen[t.dataset.editday] = true; render();
+  }
   else if (t.dataset.editdone) { delete editOpen[t.dataset.editdone]; render(); }
   else if (t.dataset.skipday) {
     const d = t.dataset.skipday;
@@ -2564,7 +2688,7 @@ function pushSync() {
   setSyncState('push');
   pruneWeeks();
   const payload = {
-    weeks: STOREBOX.weeks, weekMeta: STOREBOX.weekMeta,
+    weeks: STOREBOX.weeks, weekMeta: STOREBOX.weekMeta, weekLocks: STOREBOX.weekLocks,
     settings: STOREBOX.settings, settingsMeta: STOREBOX.settingsMeta,
     feedbackLog: STOREBOX.feedbackLog, customRecipes: STOREBOX.customRecipes,
     device: DEVICE_ID, at: Date.now()
@@ -2579,11 +2703,12 @@ function persistLocalOnly() {
 function mergeRemote(r) {
   if (!r) return;
   let currentChanged = false, settingsChanged = false, localNewer = false;
-  const rw = r.weeks || {}, rm = r.weekMeta || {};
+  const rw = r.weeks || {}, rm = r.weekMeta || {}, rl = r.weekLocks || {};
   for (const k of new Set(Object.keys(rw).concat(Object.keys(STOREBOX.weeks)))) {
     const rt = rm[k] || 0, lt = STOREBOX.weekMeta[k] || 0;
     if (rw[k] && rt > lt) {
       STOREBOX.weeks[k] = rw[k]; STOREBOX.weekMeta[k] = rt;
+      if (rl[k]) STOREBOX.weekLocks[k] = rl[k]; else delete STOREBOX.weekLocks[k];
       if (k === S.weekOf) currentChanged = true;
     } else if (lt > rt) localNewer = true;
   }
