@@ -3,17 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Weekly Dinner Planner</title>
+<title>Stoked 2 Eat</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 56 56'%3E%3Ccircle cx='28' cy='28' r='26' fill='%231D9E8F'/%3E%3Cpath d='M28 9c1.2 5.4-2.6 8.2-5.4 11.6-2.8 3.4-4.6 7-4.6 10.6 0 6.4 4.6 11 10 11s10-4.6 10-11c0-4.8-2.6-8.4-5.2-11.2.6 2.6.2 4.8-1.2 6.2-1.6 1.6-4.4 1.4-5.6-.6-1.4-2.4-.2-4.8 1-7.2 1.2-2.6 1.6-6 1-9.4z' fill='%23D5352C'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Public+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#1B3A5C; --ink-soft:#3E6187;
-    --paper:#FAF7ED; --paper-deep:#EFE9D8; --paper-edge:#E2DAC3;
-    --gold:#D9A227; --sage:#7E8F6B; --clay:#A6402F;
-    --graphite:#22221E; --graphite-soft:#55544B; --card:#FFFFFF;
-    --r:3px;
+    --ink:#1E2430; --ink-soft:#3E5A64;
+    --paper:#FBF4E6; --paper-deep:#F2E7CC; --paper-edge:#E5D9BE;
+    --gold:#E8A62E; --sage:#1D9E8F; --clay:#B5121B; --red:#D5352C; --mustard:#F3C650;
+    --graphite:#2B2A24; --graphite-soft:#6B6553; --card:#FFFDF6;
+    --r:8px;
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
@@ -369,6 +370,68 @@ body{background-image:radial-gradient(rgba(27,58,92,.035) 1px, transparent 1.2px
   .tick{width:22px;height:22px}
   .eater{padding:10px 15px}
 }
+
+/* ---------- Stoked 2 Eat rebrand ---------- */
+.brandlock{display:flex;align-items:center;gap:13px}
+.brandlock.big{margin-bottom:8px}
+.wordmark{font-size:30px;font-weight:800;color:var(--ink);letter-spacing:-.5px;line-height:1.1;display:block}
+.brandlock.big .wordmark{font-size:36px}
+.wm2{display:inline-block;background:var(--red);color:var(--paper);border-radius:9px;padding:0 9px;transform:rotate(-6deg);border:2.5px solid var(--ink)}
+.tagline{margin:3px 0 0;font-size:11.5px;color:#8A6F35;letter-spacing:.2em;text-transform:uppercase}
+.checker{height:8px;margin-top:12px;background-image:repeating-linear-gradient(90deg,var(--ink) 0 8px,transparent 8px 16px),repeating-linear-gradient(90deg,transparent 0 8px,var(--ink) 8px 16px);background-size:16px 4px,16px 4px;background-position:0 0,0 4px;background-repeat:repeat-x,repeat-x}
+.btn.red{background:var(--red);border-color:var(--ink);color:var(--paper)}
+.btn.red:hover{background:var(--clay)}
+.topnav a.on{border-bottom-color:var(--red)}
+.tlab.special{color:#8E6A12;background:var(--mustard);border-radius:999px;padding:2px 11px;display:inline-block;transform:rotate(-2deg);font-weight:700}
+.cdname.supper{color:var(--red);font-weight:800;letter-spacing:.1em}
+.phicon{display:inline-block;vertical-align:-6px;margin-right:7px}
+.ribbonrow{max-width:1220px;margin:26px auto 0;padding:0 20px}
+.mc-skip{border-left-color:var(--graphite-soft);color:var(--graphite-soft);font-style:italic}
+.cookday.skipped h3{color:var(--graphite-soft);font-style:italic}
+.cookday.pastday{opacity:.62}
+.day.pastday{opacity:.68}
+.day.skipday .dbody{padding-top:14px}
+/* compact day cards: decided by default */
+.day.compact .editacts,.day.compact .addside,.day.compact .choicegrp,.day.compact select,
+.day.compact .side[aria-pressed="false"],.day.compact .boost:not([aria-pressed="true"]),
+.day.compact .guest button,.day.compact .fruitrow{display:none!important}
+.day.compact .side[aria-pressed="true"],.day.compact .boost[aria-pressed="true"]{pointer-events:none}
+.day.compact .sidepick button{pointer-events:none}
+.day.compact .boostrow:not(:has([aria-pressed="true"])):not(:has(.sidepick)){display:none}
+.day.editing .compactacts{display:none}
+.skipset{display:inline-flex;gap:6px;border-left:1px dashed var(--paper-edge);padding-left:10px;margin-left:4px}
+.lockedpill{background:var(--ink);color:var(--paper)}
+/* recipe box card */
+.cardwrap{position:relative;max-width:640px}
+.gingham{position:absolute;top:12px;left:14px;right:-8px;bottom:-10px;border-radius:8px;background:#CDE4E0;border:0.5px solid #9CC5BE;background-image:repeating-linear-gradient(0deg,rgba(255,255,255,.55) 0 10px,transparent 10px 20px),repeating-linear-gradient(90deg,rgba(255,255,255,.55) 0 10px,transparent 10px 20px)}
+.recipecard{position:relative;background:var(--card);border:1.5px solid var(--red);border-radius:8px;padding:16px 20px 14px}
+.recipecard .rphoto{height:180px;margin-bottom:12px}
+.chead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.cwm{font-size:20px;font-weight:800;letter-spacing:.02em}
+.cwmr{color:var(--clay)}
+.cwmt{color:#1D6E64}
+.cwm2{font-family:Georgia,serif;font-style:italic;font-size:22px;color:var(--sage)}
+.cserves{text-align:right;font-size:12px;color:#1D6E64;line-height:1.9}
+.cserves u{color:var(--ink);text-decoration:none;border-bottom:1px solid #C9BB98;padding:0 10px}
+.crecipe{font-size:12.5px;color:#1D6E64;margin-top:10px;letter-spacing:.04em}
+.cname{font-family:Georgia,serif;font-size:19px;color:var(--ink);border-bottom:1.5px solid var(--red);padding:0 8px}
+.cfav{color:var(--clay);font-size:12px;white-space:nowrap}
+.cmeta{font-size:12px;color:var(--graphite-soft);margin-top:7px}
+.ccols{display:grid;grid-template-columns:1fr 1.35fr;gap:0 18px;margin-top:12px}
+.ccollab{font-size:11.5px;letter-spacing:.1em;color:#1D6E64;margin-bottom:3px}
+.ccol:first-child{border-right:1px dashed #C9BB98;padding-right:14px}
+.cline{font-size:13.5px;color:var(--ink);line-height:1.55;padding:5px 0;border-bottom:1px solid #CFE0EC}
+.cline .dot{color:var(--red)}
+.cline .num{color:var(--ink-soft)}
+.hwline{font-family:Georgia,serif;font-style:italic;color:#8E5A12}
+.cextra{font-size:12.5px;color:var(--graphite);margin-top:10px;line-height:1.55}
+.cfoot{font-size:10.5px;letter-spacing:.16em;color:#8A6F35;margin-top:12px}
+@media (max-width:620px){.ccols{grid-template-columns:1fr}.ccol:first-child{border-right:none;padding-right:0}}
+/* cook-mode check pop */
+@keyframes ckpop{0%{transform:scale(1)}45%{transform:scale(1.06)}100%{transform:scale(1)}}
+.cklist input:checked+span{animation:ckpop .22s ease-out}
+.librow{border-top:3px solid var(--red)}
+.librow .ln{font-family:Georgia,serif}
 </style>
 </head>
 <body>
@@ -384,9 +447,10 @@ body{background-image:radial-gradient(rgba(27,58,92,.035) 1px, transparent 1.2px
 
 <div class="view" id="view-home">
   <header class="vhead">
-    <p class="eyebrow">Stoker Household</p>
-    <h1>Family Meal Planner</h1>
-  </header>
+    <div class="brandlock big"><svg width="58" height="58" viewBox="0 0 56 56" role="img" aria-label="Stoked 2 Eat logo"><circle cx="28" cy="28" r="25" fill="#1D9E8F" stroke="#1E2430" stroke-width="2.5"/><path d="M28 9c1.2 5.4-2.6 8.2-5.4 11.6-2.8 3.4-4.6 7-4.6 10.6 0 6.4 4.6 11 10 11s10-4.6 10-11c0-4.8-2.6-8.4-5.2-11.2.6 2.6.2 4.8-1.2 6.2-1.6 1.6-4.4 1.4-5.6-.6-1.4-2.4-.2-4.8 1-7.2 1.2-2.6 1.6-6 1-9.4z" fill="#D5352C" stroke="#1E2430" stroke-width="2.2" stroke-linejoin="round"/><path d="M28 26c.6 2.6-1.8 3.8-1.8 6.4 0 2.6 1.8 4.4 4 4.4-1 1.6-2.8 2.6-4.8 2.4-2.8-.3-4.8-2.6-4.8-5.6 0-3.8 3.2-5.6 5.4-8.4.8-1 1.6-2.2 2-3.6z" fill="#F3C650"/></svg><div><span class="wordmark">STOKED <span class="wm2">2</span> EAT</span><p class="tagline">Est. 2026 &middot; Stoker family kitchen</p></div></div>
+    <div class="checker" aria-hidden="true"></div>
+  <div class="checker" aria-hidden="true"></div>
+</header>
   <div id="homeTonight"></div>
   <div class="homegrid">
     <a class="homecard" href="#plan"><h2>Plan the week</h2><p>Build the menu, scale portions, get the grocery list and the chicken batch.</p></a>
@@ -397,8 +461,8 @@ body{background-image:radial-gradient(rgba(27,58,92,.035) 1px, transparent 1.2px
 
 <div class="view" id="view-cook">
   <header class="vhead">
-    <h1>What's for dinner</h1>
-    <p class="sub" id="cookWeekLabel"></p>
+    <div style="display:flex;align-items:center;gap:12px"><svg width="44" height="44" viewBox="0 0 64 64" role="img" aria-label="Crossed fork and spoon"><g transform="rotate(-28 26 36)"><rect x="24.5" y="26" width="3.4" height="26" rx="1.7" fill="#1D9E8F" stroke="#1E2430" stroke-width="1.5"/><path d="M22 14h8.4v8.5c0 2.6-1.8 4.4-4.2 4.4S22 25.1 22 22.5z" fill="#1D9E8F" stroke="#1E2430" stroke-width="1.5" stroke-linejoin="round"/><path d="M24.6 14v7m3.2-7v7" stroke="#FBF4E6" stroke-width="1.4" stroke-linecap="round"/></g><g transform="rotate(28 38 36)"><rect x="36.3" y="26" width="3.4" height="26" rx="1.7" fill="#D5352C" stroke="#1E2430" stroke-width="1.5"/><ellipse cx="38" cy="20" rx="6" ry="7.4" fill="#D5352C" stroke="#1E2430" stroke-width="1.5"/><ellipse cx="38" cy="19.4" rx="3.2" ry="4.2" fill="#A32620"/></g></svg><div><h1 style="margin:0">What's for dinner</h1>
+    <p class="sub" id="cookWeekLabel" style="margin:2px 0 0"></p></div></div>
     <p style="margin:6px 0 0"><button class="btn ghost sm" id="sendSkylight">Send week to Skylight</button></p>
   </header>
   <div id="cookList"></div>
@@ -417,7 +481,7 @@ body{background-image:radial-gradient(rgba(27,58,92,.035) 1px, transparent 1.2px
 </div>
 
 <div class="view" id="view-recipes">
-  <header class="vhead"><h1>Recipes</h1><p class="sub">The whole database. Tap any recipe to open it.</p></header>
+  <header class="vhead"><svg width="100%" height="118" viewBox="0 0 680 118" role="img" aria-label="The Stoker recipe box"><path d="M190 52 h300 v52 c0 6-5 10-11 10 H201 c-6 0-11-4-11-10z" fill="#B5121B" stroke="#1E2430" stroke-width="2.5"/><path d="M180 46 h320 v14 H180z" fill="#8E0E15" stroke="#1E2430" stroke-width="2.5"/><g><rect x="216" y="18" width="76" height="32" rx="4" fill="#FFFDF6" stroke="#1E2430" stroke-width="2"/><rect x="230" y="10" width="48" height="15" rx="4" fill="#F3C650" stroke="#1E2430" stroke-width="2"/><text x="254" y="21.5" text-anchor="middle" style="font-size:9.5px;font-weight:600" fill="#4A3608">DINNERS</text></g><g><rect x="304" y="24" width="76" height="26" rx="4" fill="#FFF9EE" stroke="#1E2430" stroke-width="2"/><rect x="314" y="16" width="56" height="15" rx="4" fill="#1D9E8F" stroke="#1E2430" stroke-width="2"/><text x="342" y="27.5" text-anchor="middle" style="font-size:9.5px;font-weight:600" fill="#FBF4E6">BREAKFASTS</text></g><g><rect x="392" y="26" width="72" height="24" rx="4" fill="#FFF6E6" stroke="#1E2430" stroke-width="2"/><rect x="404" y="18" width="44" height="15" rx="4" fill="#D5352C" stroke="#1E2430" stroke-width="2"/><text x="426" y="29.5" text-anchor="middle" style="font-size:9.5px;font-weight:600" fill="#FBF4E6">SIDES</text></g><text x="340" y="86" text-anchor="middle" style="font-size:14px;font-weight:600;letter-spacing:.08em" fill="#FBF4E6">THE STOKER RECIPE BOX</text><text x="340" y="100" text-anchor="middle" style="font-size:9px;letter-spacing:2px" fill="#F0B9B4">159 CARDS AND COUNTING</text></svg></header>
   <div class="libbar">
     <input type="search" id="libQ" placeholder="Search recipes&hellip;" aria-label="Search recipes">
     <select id="libTag" aria-label="Filter by tag"></select>
@@ -435,12 +499,11 @@ body{background-image:radial-gradient(rgba(27,58,92,.035) 1px, transparent 1.2px
 <header>
   <div class="headrow">
     <div>
-      <p class="eyebrow">Stoker Household &middot; Dinners</p>
-      <h1>Weekly Dinner Planner</h1>
-      <p class="sub">A week of dinners scaled to who's actually eating, with the grocery run, the prep list, and one Instant&nbsp;Pot chicken batch worked out for you.</p>
+      <div class="brandlock"><svg width="46" height="46" viewBox="0 0 56 56" role="img" aria-label="Stoked 2 Eat logo"><circle cx="28" cy="28" r="25" fill="#1D9E8F" stroke="#1E2430" stroke-width="2.5"/><path d="M28 9c1.2 5.4-2.6 8.2-5.4 11.6-2.8 3.4-4.6 7-4.6 10.6 0 6.4 4.6 11 10 11s10-4.6 10-11c0-4.8-2.6-8.4-5.2-11.2.6 2.6.2 4.8-1.2 6.2-1.6 1.6-4.4 1.4-5.6-.6-1.4-2.4-.2-4.8 1-7.2 1.2-2.6 1.6-6 1-9.4z" fill="#D5352C" stroke="#1E2430" stroke-width="2.2" stroke-linejoin="round"/><path d="M28 26c.6 2.6-1.8 3.8-1.8 6.4 0 2.6 1.8 4.4 4 4.4-1 1.6-2.8 2.6-4.8 2.4-2.8-.3-4.8-2.6-4.8-5.6 0-3.8 3.2-5.6 5.4-8.4.8-1 1.6-2.2 2-3.6z" fill="#F3C650"/></svg><div><span class="wordmark">STOKED <span class="wm2">2</span> EAT</span><p class="tagline">Est. 2026 &middot; Stoker family kitchen</p></div></div>
+      <p class="sub">Dinners scaled to who's actually eating &mdash; groceries, prep, and the chicken batch handled.</p>
     </div>
     <div class="headacts">
-      <button class="btn" id="decideAll">Decide it all</button>
+      <button class="btn red" id="decideAll" title="Decide the whole week in one tap">Let's get stoked</button>
       <button class="btn ghost" id="shuffleWeek">Build a new week</button>
       <button class="btn ghost" id="setupBtn">Household</button>
       <button class="btn ghost" id="printBtn">Print</button>
@@ -470,14 +533,14 @@ body{background-image:radial-gradient(rgba(27,58,92,.035) 1px, transparent 1.2px
     </section>
 
     <section class="panel" style="margin-top:16px">
-      <div class="ph"><h2>Breakfasts this week</h2>
+      <div class="ph"><h2><span class="phicon"><svg width="26" height="26" viewBox="0 0 64 64" role="img" aria-label="Mixing bowl"><path d="M10 26h44c0 14-9 23-22 23S10 40 10 26z" fill="#FFFDF6" stroke="#1E2430" stroke-width="2.4" stroke-linejoin="round"/><path d="M11.5 31h41" stroke="#D5352C" stroke-width="4"/><path d="M10 26h44" stroke="#1E2430" stroke-width="2.4"/><circle cx="29" cy="42" r="3.4" fill="#D5352C"/><circle cx="36.5" cy="43" r="3.4" fill="#B5121B"/></svg></span>Breakfasts this week</h2>
         <div class="modetog"><button data-bfmode="batch" aria-pressed="true">Batch</button><button data-bfmode="fresh" aria-pressed="false">Fresh</button></div>
       </div>
       <div class="pb" id="breakfast"></div>
     </section>
 
     <section class="panel" style="margin-top:16px">
-      <div class="ph"><h2>After-school snacks</h2><span class="seclab">One baked &middot; two fresh</span></div>
+      <div class="ph"><h2><span class="phicon"><svg width="26" height="26" viewBox="0 0 64 64" role="img" aria-label="Oven mitt"><g transform="rotate(-8 32 32)"><path d="M20 44c-3-7-5-14-3.4-21 1-4.4 4.6-7.6 9.4-8.2 6-.8 11.6 2.4 13.4 8l2.2 6.8c2.6-1.4 5.6-.4 6.6 2 1 2.6-.4 5-3.4 6.6l-8.4 4.4z" fill="#1D9E8F" stroke="#1E2430" stroke-width="2.4" stroke-linejoin="round"/><path d="M19.6 43.5h17v8h-17z" fill="#F3C650" stroke="#1E2430" stroke-width="2.4" stroke-linejoin="round"/></g></svg></span>After-school snacks</h2><span class="seclab">One baked &middot; two fresh</span></div>
       <div class="pb" id="snacks"></div>
     </section>
   </main>
@@ -530,6 +593,7 @@ body{background-image:radial-gradient(rgba(27,58,92,.035) 1px, transparent 1.2px
   </div>
 </div>
 
+<div class="ribbonrow"><svg width="100%" height="40" viewBox="0 0 680 40" role="img" aria-label="Good food, good people, good times"><path d="M150 6h380v28H150z" fill="#1D9E8F" stroke="#1E2430" stroke-width="2"/><path d="M150 6l-22 14 22 14zM530 6l22 14-22 14z" fill="#0F6E56" stroke="#1E2430" stroke-width="2" stroke-linejoin="round"/><text x="340" y="25" text-anchor="middle" style="font-size:13px;font-weight:600;letter-spacing:.14em" fill="#FBF4E6">GOOD FOOD &#8226; GOOD PEOPLE &#8226; GOOD TIMES</text></svg></div>
 <footer id="foot"></footer>
 </div>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
@@ -860,7 +924,7 @@ function proposeWeek() {
       if (!(beansOn(plan, a) && beansOn(plan, b))) continue;
       const partner = shuffle(DAYS).find(d => {
         if (d === a || d === b || plan[d] === '__pizza__') return false;
-        if (S.plan[d] && S.plan[d].locked) return false;
+        if (S.plan[d] && (S.plan[d].locked || S.plan[d].skip)) return false;
         if (beansOn(plan, d)) return false;
         if (!dayAccepts(plan, d, plan[b]) || !dayAccepts(plan, b, plan[d])) return false;
         const prev = DAYS[dayIdx(d) - 1], next = DAYS[dayIdx(d) + 1];
@@ -1007,6 +1071,7 @@ function buildLists() {
 
   for (const d of DAYS) {
     const p = S.plan[d];
+    if (!p || p.skip || dayPassed(d)) continue;
     if (p.id === '__pizza__') {
       if (S.orderOut) continue;
       const style = PIZZA.styles.find(s => s.id === S.pizzaStyle);
@@ -1330,9 +1395,20 @@ function dayMargin(d, tag) {
     '<button data-guest="' + d + '" data-delta="1" aria-label="More guests ' + d + '">+</button></div></div>';
 }
 
+let editOpen = {};
 function dayCard(d) {
-  const p = S.plan[d], r = byId[p.id], sc = scaleSide(r, d);
-  const tag = d === 'Monday' ? 'Make-ahead night' : '';
+  const p = S.plan[d];
+  if (p.skip) {
+    return '<article class="day skipday">' + dayMargin(d, '') + '<div class="dbody">' +
+      '<h3 class="dtitle" style="color:var(--graphite-soft)">' + SKIP_LABEL[p.skip] + '</h3>' +
+      '<p class="dnote" style="margin:4px 0 10px">Off the grocery list, prep rail, and chicken math.</p>' +
+      '<div class="dacts"><button class="btn ghost sm" data-unskip="' + d + '">Un-skip</button></div>' +
+      '</div></article>';
+  }
+  const r = byId[p.id], sc = scaleSide(r, d);
+  const past = dayPassed(d);
+  const editing = !!editOpen[d];
+  const tag = past ? 'Earlier this week' : (d === 'Monday' ? 'Make-ahead night' : '');
   const src = r.source ? r.source.book + (r.source.page ? ', p. ' + r.source.page : '') : '';
   const pills = [];
   if (r.slowCookerHours) pills.push('<span class="pill sage">Slow cooker &middot; ' + esc(r.slowCookerHours) + '</span>');
@@ -1387,13 +1463,22 @@ function dayCard(d) {
         '</p>').join('') + '</div>';
   }
 
-  return '<article class="day">' + dayMargin(d, tag) + '<div class="dbody">' +
+  const compactActs = '<div class="dacts compactacts">' +
+    '<button class="btn ghost sm" data-editday="' + d + '">Edit</button>' +
+    (p.locked ? '<span class="pill lockedpill">Locked</span>' : '') +
+    ((S.guests[d] || 0) > 0 ? '<span class="pill">+' + S.guests[d] + ' guests</span>' : '') + '</div>';
+  const editActs = '<div class="dacts editacts"><select class="swap" data-swap="' + d + '">' + opts + '</select>' +
+    '<button class="btn ghost sm" data-reroll="' + d + '">Another</button>' +
+    '<button class="btn ghost sm lockbtn" data-lock="' + d + '" aria-pressed="' + p.locked + '">' + (p.locked ? 'Locked' : 'Keep') + '</button>' +
+    '<span class="skipset">' +
+    '<button class="btn ghost sm" data-skipday="' + d + '" data-kind="leftovers">Leftovers</button>' +
+    '<button class="btn ghost sm" data-skipday="' + d + '" data-kind="out">Eating out</button>' +
+    '<button class="btn ghost sm" data-skipday="' + d + '" data-kind="skip">Skip</button></span>' +
+    '<button class="btn sm red" data-editdone="' + d + '">Done</button></div>';
+  return '<article class="day' + (editing ? ' editing' : ' compact') + (past ? ' pastday' : '') + '">' + dayMargin(d, tag) + '<div class="dbody">' +
     '<h3 class="dtitle">' + esc(r.name) + '</h3><p class="dsrc">' + esc(src) + '</p>' +
     comboHeader(d) + fridayChips(d) + '<div class="meta">' + pills.join('') + '</div>' + notes + versionChips(d, r) + sideRow(d, r) + plateRow(d) +
-    '<div class="dacts"><select class="swap" data-swap="' + d + '">' + opts + '</select>' +
-    '<button class="btn ghost sm" data-reroll="' + d + '">Another</button>' +
-    '<button class="btn ghost sm lockbtn" data-lock="' + d + '" aria-pressed="' + p.locked + '">' +
-    (p.locked ? 'Locked' : 'Keep') + '</button></div>' + boostRow +
+    (editing ? editActs : compactActs) + boostRow +
     '</div></article>';
 }
 
@@ -1885,7 +1970,7 @@ function decideAll() {
   proposeWeek();
   for (const d of DAYS) {
     const p = S.plan[d];
-    if (p.locked || p.id === '__pizza__') continue;
+    if (p.locked || p.skip || p.id === '__pizza__') continue;
     const r = byId[p.id];
     if (!p.sides.length) {
       let sugg = (PAIRS[r.id] || []).slice();
@@ -2066,6 +2151,11 @@ function routeRefresh() {
   else if (currentView === 'recipe') renderRecipe(currentRecipe);
   else if (currentView === 'tonight') renderTonight(currentTonight);
 }
+function mondayIdxToday() { return (new Date().getDay() + 6) % 7; }
+function dayPassed(d) {
+  return S.weekOf === defaultWeekKey() && weekContainsToday() && DAYS.indexOf(d) < mondayIdxToday();
+}
+const SKIP_LABEL = {leftovers: 'Leftovers night', out: 'Eating out', skip: 'Skipped'};
 function todayName() {
   const names = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   return names[new Date().getDay()];
@@ -2104,26 +2194,33 @@ function renderHome() {
   if (weekContainsToday() && S.plan[tn]) {
     const m = mealTitleFor(tn);
     el.innerHTML = '<div class="tonight hero">' + photoBox(m.rid, m.r && m.r.name, 'herothumb') +
-      '<div class="herotxt"><span class="tlab">Tonight &middot; ' + tn + '</span>' +
+      '<div class="herotxt"><span class="tlab special">Tonight\'s special &middot; ' + tn + '</span>' +
       '<a href="#recipe/' + m.rid + '"><h2>' + m.title + '</h2></a>' +
       '<div class="meta">' + smallPills(m.r) + '</div></div></div>';
   } else {
-    el.innerHTML = '<div class="tonight"><span class="tlab">' + esc(weekLabelText(S.weekOf)) + '</span>' +
-      '<h2>No plan for today yet</h2><p class="dnote" style="margin:4px 0 0">Open the planner to build this week.</p></div>';
+    el.innerHTML = '<div class="tonight hero"><span class="herothumb" style="display:inline-flex;align-items:center;justify-content:center;background:transparent"><svg width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="Campfire"><path d="M32 12c2.4 6-4.4 8.4-2 13.6 1.2 2.7 5 2.5 5.8-.7 3 3.8 2.6 9.6-1 12.9-3 2.7-8.2 2.7-11.2 0-4.6-4.2-4.2-11.4.6-16.6 2.6-2.9 6.2-5.7 7.8-9.2z" fill="#D5352C" stroke="#1E2430" stroke-width="2" stroke-linejoin="round"/><path d="M32 26c1 2.6-1.8 3.6-.8 6 .5 1.3 2.3 1.2 2.7-.3 1.4 2 1 4.8-.8 6.3-1.5 1.2-3.9 1.1-5.2-.2-2-2-1.8-5.4.4-7.9 1.2-1.4 2.8-2.5 3.7-3.9z" fill="#F3C650"/><path d="M14 50l14 6M50 50l-14 6" stroke="#8A5A2B" stroke-width="5" stroke-linecap="round"/><path d="M14 56l14-6M50 56l-14-6" stroke="#A8743C" stroke-width="5" stroke-linecap="round"/></svg></span>' +
+      '<div class="herotxt"><span class="tlab">' + esc(weekLabelText(S.weekOf)) + '</span>' +
+      '<h2>Nothing\'s cooking yet</h2><p class="dnote" style="margin:4px 0 0">Let\'s get stoked &mdash; open the planner and decide the week.</p></div></div>';
   }
 }
 function renderCook() {
   document.getElementById('cookWeekLabel').textContent = weekLabelText(S.weekOf);
   const tn = todayName(), isThisWeek = weekContainsToday();
   document.getElementById('cookList').innerHTML = DAYS.map(d => {
-    const m = mealTitleFor(d); if (!m) return '';
     const p = S.plan[d];
+    if (p && p.skip) {
+      return '<article class="cookday skipped' + (isThisWeek && d === tn ? ' today' : '') + '">' +
+        '<div class="cdname">' + d + '</div><h3>' + SKIP_LABEL[p.skip] + '</h3>' +
+        '<p class="cooksides">Night off &mdash; nothing on the list.</p></article>';
+    }
+    const m = mealTitleFor(d); if (!m) return '';
     const sides = (p.sides || []).map(sid => {
       const sr = byId[sid];
       return sr ? '<a href="#recipe/' + sr.id + '">' + esc(sr.name) + '</a>' : esc(String(sid));
     }).filter(Boolean).join(' &middot; ');
-    return '<article class="cookday' + (isThisWeek && d === tn ? ' today' : '') + '">' +
-      '<div class="cdname">' + d + (isThisWeek && d === tn ? ' &middot; tonight' : '') + '</div>' +
+    const past = dayPassed(d);
+    return '<article class="cookday' + (isThisWeek && d === tn ? ' today' : '') + (past ? ' pastday' : '') + '">' +
+      '<div class="cdname">' + d + (isThisWeek && d === tn ? ' &middot; tonight' : (past ? ' &middot; earlier this week' : '')) + '</div>' +
       '<h3><a href="#recipe/' + m.rid + '">' + m.title + '</a></h3>' +
       '<div class="meta">' + smallPills(m.r) + '</div>' +
       (sides ? '<p class="cooksides">With: ' + sides + '</p>' : '') +
@@ -2134,7 +2231,8 @@ function renderCook() {
 function renderRecipe(id) {
   const body = document.getElementById('recipeBody');
   const r = byId[id];
-  if (!r) { body.innerHTML = '<p class="rback"><button class="btn ghost sm" onclick="history.back()">&larr; Back</button></p><div class="recipepg"><h1>Recipe not found</h1></div>'; return; }
+  const back = '<p class="rback"><button class="btn ghost sm" onclick="history.back()">&larr; Back</button></p>';
+  if (!r) { body.innerHTML = back + '<div class="recipecard"><h1>Card not found</h1></div>'; return; }
   const src = r.source ? (r.source.book || '') + (r.source.page ? ', p. ' + r.source.page : '') : '';
   const mac = r.macrosPerServing || {};
   const macBits = [];
@@ -2142,35 +2240,31 @@ function renderRecipe(id) {
   if (mac.protein != null) macBits.push(mac.protein + 'g protein');
   if (mac.carbs != null) macBits.push(mac.carbs + 'g carbs');
   if (mac.fat != null) macBits.push(mac.fat + 'g fat');
-  if (mac.fiber != null) macBits.push(mac.fiber + 'g fiber');
-  const pills = [];
-  if (r.slowCookerHours) pills.push('<span class="pill sage">Slow cooker &middot; ' + esc(r.slowCookerHours) + '</span>');
-  if (r.totalMinutesFastPath) pills.push('<span class="pill">' + r.totalMinutesFastPath + ' min</span>');
-  if (r.servingsPrinted || r.servings) pills.push('<span class="pill gold">' + esc(String(r.servingsPrinted || r.servings)) + ' servings</span>');
-  if (macBits.length) pills.push('<span class="pill">' + macBits.join(' &middot; ') + '</span>');
   const hwRaw = r.handwrittenNotes;
-  const hwList = Array.isArray(hwRaw) ? hwRaw : (hwRaw ? [hwRaw] : []);
-  const hw = hwList.filter(Boolean).map(n =>
-    '<div class="hwnote"><b>Your note:</b> ' + esc(typeof n === 'string' ? n : (n.text || JSON.stringify(n))) + '</div>').join('');
-  const ing = (r.ingredients || []).map(x => '<li>' + esc(typeof x === 'string' ? x : (x.line || x.item || '')) + '</li>').join('');
-  const steps = (r.instructions || []).map(x => '<li>' + esc(typeof x === 'string' ? x : (x.text || '')) + '</li>').join('');
+  const hwList = (Array.isArray(hwRaw) ? hwRaw : (hwRaw ? [hwRaw] : [])).filter(Boolean);
+  const ing = (r.ingredients || []).map(x => '<div class="cline"><span class="dot">&bull;</span> ' + esc(typeof x === 'string' ? x : (x.line || x.item || '')) + '</div>').join('');
+  const steps = (r.instructions || []).map((x, i) => '<div class="cline"><b class="num">' + (i + 1) + '.</b> ' + esc(typeof x === 'string' ? x : (x.text || '')) + '</div>').join('');
+  const hw = hwList.map(n => '<div class="cline hwline">&ldquo;' + esc(typeof n === 'string' ? n : (n.text || '')) + '&rdquo; &mdash; your note</div>').join('');
   let extra = '';
-  if (r.yourMethod && r.yourMethod.body) {
-    extra += '<h2>' + esc(r.yourMethod.title || 'Your method') + '</h2><p>' + esc(r.yourMethod.body) + '</p>' +
-      (r.yourMethod.steps ? '<ol class="rsteps">' + r.yourMethod.steps.map(s => '<li>' + esc(s) + '</li>').join('') + '</ol>' : '');
-  }
-  if (r.keepsNote) extra += '<h2>Leftovers</h2><p>' + (r.keeps ? '<b>' + esc(cap(r.keeps)) + '.</b> ' : '') + esc(r.keepsNote) + '</p>';
+  if (r.yourMethod && r.yourMethod.body) extra += '<div class="cextra"><b>' + esc(r.yourMethod.title || 'Your method') + '.</b> ' + esc(r.yourMethod.body) +
+    (r.yourMethod.steps ? ' ' + r.yourMethod.steps.map(s => esc(s)).join(' ') : '') + '</div>';
+  if (r.keepsNote) extra += '<div class="cextra"><b>Leftovers.</b> ' + (r.keeps ? esc(cap(r.keeps)) + '. ' : '') + esc(r.keepsNote) + '</div>';
   const vars = (r.variations || []).filter(Boolean);
-  if (vars.length) extra += '<h2>Variations</h2><ul class="ring">' + vars.map(v => '<li>' + esc(typeof v === 'string' ? v : (v.name ? v.name + (v.text ? ' — ' + v.text : '') : JSON.stringify(v))) + '</li>').join('') + '</ul>';
+  if (vars.length) extra += '<div class="cextra"><b>Variations.</b> ' + vars.map(v => esc(typeof v === 'string' ? v : (v.name ? v.name + (v.text ? ' — ' + v.text : '') : ''))).join(' &middot; ') + '</div>';
   const tips = (r.bookTips || []).filter(Boolean);
-  if (tips.length) extra += '<h2>Book tips</h2><ul class="ring">' + tips.map(t => '<li>' + esc(typeof t === 'string' ? t : (t.text || JSON.stringify(t))) + '</li>').join('') + '</ul>';
-  body.innerHTML = '<p class="rback"><button class="btn ghost sm" onclick="history.back()">&larr; Back</button></p>' +
-    '<div class="recipepg">' + photoBox(id, r.name, 'rphoto mt-' + r.mealType) + '<h1>' + esc(r.name) + '</h1>' +
-    (src ? '<p class="rsrc">' + esc(src) + '</p>' : '') +
-    '<div class="meta">' + pills.join('') + '</div>' + hw +
-    (ing ? '<h2>Ingredients</h2><ul class="ring">' + ing + '</ul>' : '') +
-    (steps ? '<h2>Steps</h2><ol class="rsteps">' + steps + '</ol>' : '') +
-    extra + '</div>';
+  if (tips.length) extra += '<div class="cextra"><b>Book tips.</b> ' + tips.map(t => esc(typeof t === 'string' ? t : (t.text || ''))).join(' ') + '</div>';
+  body.innerHTML = back +
+    '<div class="cardwrap"><div class="gingham" aria-hidden="true"></div><div class="recipecard">' +
+    photoBox(id, r.name, 'rphoto mt-' + r.mealType) +
+    '<div class="chead"><div><span class="cwm"><span class="cwmr">STOKED</span> <span class="cwm2">2</span> <span class="cwmt">EAT</span></span></div>' +
+    '<div class="cserves">SERVES: <u>' + esc(String(r.servingsPrinted || r.servings || '')) + '</u><br>TIME: <u>' + (r.totalMinutesFastPath ? r.totalMinutesFastPath + ' min' : (r.slowCookerHours ? esc(r.slowCookerHours) : '')) + '</u></div></div>' +
+    '<div class="crecipe">RECIPE: <span class="cname">' + esc(r.name) + '</span>' + (r.familyFavorite ? ' <span class="cfav">&#9733; family favorite</span>' : '') + '</div>' +
+    (src || macBits.length ? '<div class="cmeta">' + esc(src) + (src && macBits.length ? ' &middot; ' : '') + macBits.join(' &middot; ') + '</div>' : '') +
+    '<div class="ccols"><div class="ccol"><div class="ccollab">INGREDIENTS:</div>' + ing + '</div>' +
+    '<div class="ccol"><div class="ccollab">DIRECTIONS:</div>' + steps + hw + '</div></div>' +
+    extra +
+    '<div class="cfoot">FROM THE KITCHEN OF THE STOKERS &middot; EST. 2026</div>' +
+    '</div></div>';
 }
 /* ---------- month view ---------- */
 let monthAnchor = null; /* ISO first-of-month */
@@ -2181,7 +2275,9 @@ function planFor(key) {
   return s && s.plan ? {plan: s.plan, pizzaStyle: s.pizzaStyle} : null;
 }
 function mealCell(plan, pizzaStyle, d) {
-  const p = plan[d]; if (!p || !p.id) return '';
+  const p = plan[d]; if (!p) return '';
+  if (p.skip) return '<span class="mc mc-skip">' + SKIP_LABEL[p.skip] + '</span>';
+  if (!p.id) return '';
   if (p.id === '__pizza__') {
     const st = (PIZZA.styles || []).find(s => s.id === pizzaStyle);
     return '<span class="mc mc-pizza">Pizza' + (st ? ': ' + esc(st.name || st.id) : '') + '</span>';
@@ -2257,7 +2353,7 @@ function eatAtMins() {
 }
 function ckKey(kind, rid, i) { return kind + '|' + rid + '|' + i; }
 function tonightDishes(d) {
-  const p = S.plan[d]; if (!p) return [];
+  const p = S.plan[d]; if (!p || p.skip) return [];
   const out = [];
   if (p.id === '__pizza__') {
     const dough = byId['house-pizza-dough'];
@@ -2269,7 +2365,8 @@ function tonightDishes(d) {
 function renderTonight(d) {
   const body = document.getElementById('tonightBody');
   const p = S.plan[d];
-  if (!p) { body.innerHTML = '<p class="rback"><a class="btn ghost sm" href="#cook">&larr; This week</a></p><div class="recipepg"><h1>Nothing planned for ' + esc(d) + '</h1></div>'; return; }
+  if (!p) { body.innerHTML = '<p class="rback"><a class="btn ghost sm" href="#cook">&larr; This week</a></p><div class="recipecard" style="padding:20px"><h1>Nothing planned for ' + esc(d) + '</h1></div>'; return; }
+  if (p.skip) { body.innerHTML = '<p class="rback"><a class="btn ghost sm" href="#cook">&larr; This week</a></p><div class="recipecard" style="padding:20px"><h1>' + SKIP_LABEL[p.skip] + '</h1><p class="dnote">Night off &mdash; nothing to cook, nothing on the list.</p></div>'; return; }
   p.cookChecks = p.cookChecks || {};
   const dishes = tonightDishes(d);
   const eat = eatAtMins();
@@ -2305,7 +2402,7 @@ function renderTonight(d) {
   const done = Object.values(p.cookChecks).filter(Boolean).length;
   body.innerHTML =
     '<p class="rback"><a class="btn ghost sm" href="#cook">&larr; This week</a></p>' +
-    '<div class="tnhead"><span class="cdname">' + d + '</span><h1>' + m.title + '</h1>' +
+    '<div class="tnhead"><span class="cdname supper">Stoked for supper &middot; ' + d + '</span><h1>' + m.title + '</h1>' +
     '<div class="eatrow"><label>Eating at <input type="time" id="eatAtInput" value="' + esc(STOREBOX.settings.eatAt || '18:30') + '"></label>' +
     '<button class="btn ghost sm" id="clearChecks"' + (done ? '' : ' hidden') + '>Reset checks</button></div>' +
     '<div class="sched">' + sched + '</div>' + slowNote + '</div>' +
@@ -2359,7 +2456,17 @@ function renderLibrary() {
 }
 document.addEventListener('click', e => {
   const t = e.target.closest('button'); if (!t) return;
-  if (t.id === 'clearChecks') {
+  if (t.dataset.editday) { editOpen[t.dataset.editday] = true; render(); }
+  else if (t.dataset.editdone) { delete editOpen[t.dataset.editdone]; render(); }
+  else if (t.dataset.skipday) {
+    const d = t.dataset.skipday;
+    if (S.plan[d]) { S.plan[d].skip = t.dataset.kind; delete editOpen[d]; render(); }
+  }
+  else if (t.dataset.unskip) {
+    const d = t.dataset.unskip;
+    if (S.plan[d]) { S.plan[d].skip = null; render(); }
+  }
+  else if (t.id === 'clearChecks') {
     const p = S.plan[currentTonight];
     if (p) { p.cookChecks = {}; persist(); renderTonight(currentTonight); }
   }
